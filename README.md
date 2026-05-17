@@ -33,9 +33,9 @@
 If you find this work useful, please cite:
 
 ```bibtex
-@article{rotvla2026,
+@article{li2026rotvla,
   title     = {RotVLA: Rotational Latent Action for Vision-Language-Action Model},
-  author    = {Qiwei Li and Xicheng Gong and Xinghang Li and Peiyan Li and Quanyun Zhou and Hangjun Ye and Jiahuan Zhou and Yadong Mu},
+  author    = {Li, Qiwei and Gong, Xicheng and Li, Xinghang and Li, Peiyan and Zhou, Quanyun and Ye, Hangjun and Zhou, Jiahuan and Mu, Yadong},
   journal   = {arXiv preprint arXiv:2605.13403},
   year      = {2026}
 }
