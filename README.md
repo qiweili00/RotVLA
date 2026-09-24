@@ -8,8 +8,10 @@
 <p align="center">
   <a href="https://qiweili00.github.io/rotvla-page/"><img src="https://img.shields.io/badge/Project-Page-blue" alt="Project Page"></a>
   <a href="https://arxiv.org/abs/2605.13403"><img src="https://img.shields.io/badge/arXiv-2605.13403-b31b1b.svg" alt="arXiv"></a>
-  <a href="https://huggingface.co/xxx"><img src="https://img.shields.io/badge/🤗-HuggingFace-yellow" alt="HuggingFace"></a>
+  <a href="https://huggingface.co/QiweiLi/RotVLA"><img src="https://img.shields.io/badge/🤗-HuggingFace-yellow" alt="Model"></a>
 </p>
+
+---
 
 
 <p align="center">
