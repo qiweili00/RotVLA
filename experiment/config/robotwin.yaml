@@ -1,0 +1,25 @@
+server:
+  # `host` is rewritten to the local IP by ../server.py when it launches.
+  host: 127.0.0.1
+  port: 8011
+  gpu_num: 2
+  gpu_ids:
+  - 0
+  - 1
+  config: rotvla
+  ckpt: checkpoints/VLA-Finetune-RoboTwin   # path to your RoboTwin checkpoint
+  time_step: 20
+defaults:
+  tasks_per_gpu: 2
+  eval_num_episodes: 20
+  replan_steps: 30
+  save_video: true
+  crop_ratio: 1
+eval_runs:
+- name: clean
+  params:
+    task_config: demo_clean
+- name: randomized
+  params:
+    task_config: demo_randomized
+output_root: eval_result/robotwin

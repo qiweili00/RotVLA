@@ -1,0 +1,86 @@
+# Hydra + config precedence:
+#   yaml is the primary source; override any key on the command line with
+#   Hydra's key=value syntax, e.g.  trainer.lr=2e-4  action_space=ee6d_libero
+
+# Shared dataset lookup table (path + view_map per dataset) lives in
+# config/data_info/all.yaml and is pulled in here as a Hydra config group.
+# The `# @package data.data_info` directive in that file places its content at
+# data.data_info, so the inline block that used to live below is gone.
+defaults:
+  - _self_
+  - data_info: all
+
+hydra:
+  job:
+    chdir: false        # keep the original working dir (relative paths depend on it)
+  run:
+    dir: .
+  output_subdir: null   # do not emit a .hydra/ directory next to the run
+
+# Orchestration (previously CLI-only). Usually overridden per run on the command line.
+run_name: default_run
+save_dir: ./checkpoints
+lam_path: checkpoints/LAM-Pretrain/stage1_ckpt.pt   # Stage 1 LAM checkpoint
+resume_path: null
+resume_from_stage2: false
+vlm_name: OpenGVLab/InternVL3_5-1B                 # HF repo id or a local path
+seed: -1
+device: cuda
+
+model:
+  image_channels: 3
+
+  lam_model_dim: 768
+  lam_latent_dim: 16 # 16 # 32
+  lam_num_codes: 16 # 16
+  lam_num_latents: 8192
+  lam_patch_size: 14
+  lam_enc_blocks: 12
+  lam_dec_blocks: 12
+  lam_num_heads: 12
+  to_pixel: true
+  use_identity: 100 # 5000
+  embed_dim: 1024
+  num_heads: 8
+
+  pos_emb_scheme: shared
+
+
+# Training hyperparameters. Primary source; override with trainer.<key>=<value>.
+# This config is shared across all stage3 finetune tasks, so task-specific knobs
+# (action_space, data_mix, and often lr/max_steps) are passed per-task on the
+# command line while the common defaults live here.
+trainer:
+  lr: 1.0e-4
+  batch_size: 16
+  max_steps: 80000
+  warmup_steps: 1000
+  grad_clip_norm: 1.0
+  weight_decay: 1.0e-3
+  lr_scale: 10.0
+  num_workers: 8
+  log_interval: 10
+  ckpt_interval: 10000
+  horizon: 30
+  image_horizon: 2
+  per_action_dim: 24
+  state_dim: 24
+  action_space: eepose      # override per task, e.g. action_space=ee6d_libero
+  data_mix: libero              # override per task, e.g. data_mix=libero
+  use_augmentation: false
+  finetune_action_head: true
+  finetune_vlm: true
+  latent_supervision: z_m
+  begin_with_step0: false   # resume weights but reset step to 0 (restart warmup)
+
+
+data:
+
+  resolution: 224
+  stage: stage3-vla-finetune
+  patch_size: 14
+  downsample_ratio: 0.5
+  max_views: 3
+  vla_image_resolution: 224
+
+  # data_info: provided by the `data_info: all` entry in the defaults list above.

@@ -1,0 +1,1379 @@
+# @package data
+#
+# Shared dataset lookup table for ALL configs (stage1/2 pretrain + stage3 finetune).
+# data_info is consumed purely as a name -> {path, view_map} lookup, keyed by whatever
+# datasets the active `data_mix` selects (see lerobot_dataset_pretrain_mp.py). Entries
+# not referenced by the current mixture are simply ignored, so every config shares
+# this single union. Pull it in via a Hydra defaults list entry: `- data_info: all`.
+#
+# Every dataset path is rooted at `data_root` below via ${data.data_root} interpolation
+# (resolved by OmegaConf when the config is flattened). Override the root for a
+# different machine with e.g.  data.data_root=/other/path  on the command line.
+data_root: ./data
+
+data_info:
+  # ===== Pretraining datasets (stage1-latent-pretrain / stage2-vla-pretrain) =====
+
+  ego4d:
+    path: ${data.data_root}/ego4d/Ego4D
+    view_map:
+      image_1: observation.images.rgb
+
+  robocoin_AgiBot-g1_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_AgiBot-g1_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Airbot_MMK2_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Airbot_MMK2_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_AIRBOT_MMK2_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_AIRBOT_MMK2_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Cobot_Magic_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Cobot_Magic_group_1
+    view_map:
+      image_1: observation.images.cam_front_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Cobot_Magic_group_2:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Cobot_Magic_group_2
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb_rgb
+      image_3: observation.images.cam_right_wrist_rgb_rgb
+
+  robocoin_Cobot_Magic_group_3:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Cobot_Magic_group_3
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Cobot_Magic_group_4:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Cobot_Magic_group_4
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_G1edu-u3_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_G1edu-u3_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.color_left_wrist
+      image_3: observation.images.color_right_wrist
+
+  robocoin_G1edu-u3_group_2:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_G1edu-u3_group_2
+    view_map:
+      image_1: observation.images.cam_left_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  robocoin_G1edu-u3_group_3:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_G1edu-u3_group_3
+    view_map:
+      image_1: observation.images.ego_view
+
+  robocoin_G1edu-u3_group_4:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_G1edu-u3_group_4
+    view_map:
+      image_1: observation.images.cam_high_rgb
+
+  robocoin_R1_Lite_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_R1_Lite_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_R1_Lite_group_2:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_R1_Lite_group_2
+    view_map:
+      image_1: observation.images.cam_high_left_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_RMC-AIDA-L_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_RMC-AIDA-L_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Split_aloha_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Split_aloha_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Split_aloha_group_2:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Split_aloha_group_2
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  robocoin_Tianqin_A2_group_1:
+    path: ${data.data_root}/RoboCOIN-merge/robocoin_Tianqin_A2_group_1
+    view_map:
+      image_1: observation.images.cam_high_rgb
+      image_2: observation.images.cam_left_wrist_rgb
+      image_3: observation.images.cam_right_wrist_rgb
+
+  BAAI-DataCube__robomind_benchmark1_0_release_agilex_3rgb:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_agilex_3rgb
+    view_map:
+      image_1: observation.images.camera_front
+      image_2: observation.images.camera_left_wrist
+      image_3: observation.images.camera_right_wrist
+
+  BAAI-DataCube__robomind_benchmark1_0_release_franka_1rgb:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_franka_1rgb
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_2:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_2
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_3:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_3
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right 
+
+  BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_4:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_franka_3rgb_group_4
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+
+  BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_2:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_2
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_3:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_3
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_4:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_tienkung_gello_1rgb_group_4
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  BAAI-DataCube__robomind_benchmark1_0_release_tienkung_xsens_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_tienkung_xsens_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_0_release_tienkung_xsens_1rgb_group_2:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_tienkung_xsens_1rgb_group_2
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_0_release_ur_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_0_release_ur_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_1_release_agilex_3rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_1_release_agilex_3rgb_group_1
+    view_map:
+      image_1: observation.images.camera_front
+      image_2: observation.images.camera_left_wrist
+      image_3: observation.images.camera_right_wrist
+
+  BAAI-DataCube__robomind_benchmark1_1_release_franka_3rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_1_release_franka_3rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  BAAI-DataCube__robomind_benchmark1_1_release_tienkung_gello_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_1_release_tienkung_gello_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_1_release_tienkung_prod1_gello_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_1_release_tienkung_prod1_gello_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_1_release_tienkung_xsens_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_1_release_tienkung_xsens_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_1_release_ur_1rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_1_release_ur_1rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+
+  BAAI-DataCube__robomind_benchmark1_2_release_franka_3rgb_group_1:
+    path: ${data.data_root}/RoboMIND-merge/BAAI-DataCube__robomind_benchmark1_2_release_franka_3rgb_group_1
+    view_map:
+      image_1: observation.images.camera_top
+      image_2: observation.images.camera_left
+      image_3: observation.images.camera_right
+
+  task_327:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_327
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_354:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_354
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_356:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_356
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+
+  task_358:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_358
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_359:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_359
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_360:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_360
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_361:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_361
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_365:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_365
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_366:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_366
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_367:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_367
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_372:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_372
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_374:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_374
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_375:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_375
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_376:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_376
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_384:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_384
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_385:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_385
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_388:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_388
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_389:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_389
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_390:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_390
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_398:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_398
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_410:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_410
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_421:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_421
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_446:
+    path: ${data.data_root}/AgiBotWorld-Alpha-LeRobot/task_446
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_352:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_352
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_357:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_357
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_362:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_362
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_368:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_368
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_377:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_377
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_378:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_378
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_380:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_380
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_392:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_392
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_414:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_414
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_422:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_422
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_424:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_424
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+  task_440:
+    path: ${data.data_root}/AgiBotWorld-Alpha-lerobot/task_440
+    view_map:
+      image_1: observation.images.head
+      image_2: observation.images.hand_left
+      image_3: observation.images.hand_right
+
+
+  fractal20220817_data_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/fractal20220817_data_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  kuka_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/kuka_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  bridge_orig_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/bridge_orig_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  taco_play_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/taco_play_lerobot
+    view_map:
+      image_1: observation.images.rgb_static
+      image_2: observation.images.rgb_gripper
+
+  jaco_play_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/jaco_play_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.image_wrist
+
+  berkeley_cable_routing_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/berkeley_cable_routing_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist45_image
+      image_3: observation.images.wrist225_image
+      image_4: observation.images.top_image
+
+  roboturk_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/roboturk_lerobot
+    view_map:
+      image_1: observation.images.front_rgb
+
+  viola_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/viola_lerobot
+    view_map:
+      image_1: observation.images.agentview_rgb
+      image_2: observation.images.eye_in_hand_rgb
+
+  berkeley_autolab_ur5_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/berkeley_autolab_ur5_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.hand_image
+
+  toto_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/toto_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  stanford_hydra_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/stanford_hydra_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  austin_buds_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/austin_buds_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  nyu_franka_play_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/nyu_franka_play_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_4: observation.images.image_additional_view
+
+  furniture_bench_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/furniture_bench_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  ucsd_kitchen_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/ucsd_kitchen_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  austin_sailor_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/austin_sailor_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  austin_sirius_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/austin_sirius_dataset_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  dlr_edan_shared_control_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/dlr_edan_shared_control_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  iamlab_cmu_pickup_insert_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/iamlab_cmu_pickup_insert_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  utaustin_mutex_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/utaustin_mutex_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  berkeley_fanuc_manipulation_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/berkeley_fanuc_manipulation_lerobot
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  cmu_stretch_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/cmu_stretch_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  bc_z_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/bc_z_lerobot
+    view_map:
+      image_1: observation.images.image
+
+  fmb_dataset_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/fmb_dataset_lerobot
+    view_map:
+      image_1: observation.images.image_side_2
+      image_2: observation.images.image_wrist_2
+      image_4: observation.images.image_side_1
+      image_5: observation.images.image_wrist_1
+
+  dobbe_lerobot:
+    path: ${data.data_root}/OpenX-LeRobot/dobbe_lerobot
+    view_map:
+      image_1: observation.images.wrist_image
+
+  # ===== Finetuning datasets (stage3-vla-finetune) =====
+
+  libero_spatial_no_noops:
+    path: ${data.data_root}/LIBERO-datasets-raw/libero_spatial_no_noops_any4lerobot_lerobot_v3.0
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  libero_goal_no_noops:
+    path: ${data.data_root}/LIBERO-datasets-raw/libero_goal_no_noops_any4lerobot_lerobot_v3.0
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+  libero_10_no_noops:
+    path: ${data.data_root}/LIBERO-datasets-raw/libero_10_no_noops_any4lerobot_lerobot_v3.0
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+
+  libero_object_no_noops:
+    path: ${data.data_root}/LIBERO-datasets-raw/libero_object_no_noops_any4lerobot_lerobot_v3.0
+    view_map:
+      image_1: observation.images.image
+      image_2: observation.images.wrist_image
+
+
+
+  adjust_bottle-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/adjust_bottle-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  beat_block_hammer-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/beat_block_hammer-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  blocks_ranking_rgb-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/blocks_ranking_rgb-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  blocks_ranking_size-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/blocks_ranking_size-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  click_alarmclock-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/click_alarmclock-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  click_bell-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/click_bell-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  dump_bin_bigbin-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/dump_bin_bigbin-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  grab_roller-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/grab_roller-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+
+  handover_block-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/handover_block-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  handover_mic-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/handover_mic-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  hanging_mug-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/hanging_mug-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  lift_pot-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/lift_pot-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_can_pot-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_can_pot-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_pillbottle_pad-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_pillbottle_pad-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_playingcard_away-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_playingcard_away-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_stapler_pad-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_stapler_pad-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  open_laptop-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/open_laptop-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  open_microwave-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/open_microwave-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  pick_dual_bottles-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/pick_dual_bottles-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  pick_diverse_bottles-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/pick_diverse_bottles-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_a2b_left-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_a2b_left-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_a2b_right-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_a2b_right-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_bread_basket-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_bread_basket-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_bread_skillet-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_bread_skillet-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_can_basket-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_can_basket-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_cans_plasticbox-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_cans_plasticbox-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_container_plate-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_container_plate-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_dual_shoes-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_dual_shoes-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_empty_cup-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_empty_cup-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_fan-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_fan-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_burger_fries-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_burger_fries-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_mouse_pad-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_mouse_pad-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_object_basket-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_object_basket-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_object_scale-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_object_scale-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_object_stand-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_object_stand-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_phone_stand-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_phone_stand-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_shoe-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_shoe-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  press_stapler-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/press_stapler-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  put_bottles_dustbin-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/put_bottles_dustbin-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  put_object_cabinet-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/put_object_cabinet-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  rotate_qrcode-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/rotate_qrcode-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  scan_object-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/scan_object-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  shake_bottle-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/shake_bottle-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  shake_bottle_horizontally-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/shake_bottle_horizontally-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_blocks_three-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_blocks_three-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_blocks_two-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_blocks_two-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_bowls_three-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_bowls_three-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_bowls_two-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_bowls_two-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stamp_seal-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stamp_seal-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  turn_switch-aloha-agilex_randomized_500-500:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/turn_switch-aloha-agilex_randomized_500-500
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+
+  adjust_bottle-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/adjust_bottle-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  beat_block_hammer-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/beat_block_hammer-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  blocks_ranking_rgb-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/blocks_ranking_rgb-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  blocks_ranking_size-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/blocks_ranking_size-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  click_alarmclock-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/click_alarmclock-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  click_bell-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/click_bell-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  dump_bin_bigbin-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/dump_bin_bigbin-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  grab_roller-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/grab_roller-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+
+  handover_block-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/handover_block-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  handover_mic-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/handover_mic-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  hanging_mug-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/hanging_mug-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  lift_pot-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/lift_pot-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_can_pot-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_can_pot-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_pillbottle_pad-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_pillbottle_pad-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_playingcard_away-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_playingcard_away-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  move_stapler_pad-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/move_stapler_pad-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  open_laptop-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/open_laptop-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  open_microwave-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/open_microwave-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  pick_dual_bottles-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/pick_dual_bottles-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  pick_diverse_bottles-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/pick_diverse_bottles-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_a2b_left-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_a2b_left-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_a2b_right-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_a2b_right-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_bread_basket-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_bread_basket-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_bread_skillet-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_bread_skillet-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_can_basket-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_can_basket-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_cans_plasticbox-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_cans_plasticbox-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_container_plate-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_container_plate-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_dual_shoes-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_dual_shoes-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_empty_cup-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_empty_cup-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_fan-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_fan-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_burger_fries-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_burger_fries-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_mouse_pad-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_mouse_pad-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_object_basket-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_object_basket-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_object_scale-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_object_scale-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_object_stand-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_object_stand-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_phone_stand-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_phone_stand-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  place_shoe-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/place_shoe-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  press_stapler-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/press_stapler-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  put_bottles_dustbin-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/put_bottles_dustbin-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  put_object_cabinet-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/put_object_cabinet-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  rotate_qrcode-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/rotate_qrcode-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  scan_object-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/scan_object-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  shake_bottle-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/shake_bottle-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  shake_bottle_horizontally-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/shake_bottle_horizontally-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_blocks_three-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_blocks_three-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_blocks_two-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_blocks_two-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_bowls_three-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_bowls_three-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stack_bowls_two-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stack_bowls_two-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  stamp_seal-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/stamp_seal-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist
+
+  turn_switch-aloha-agilex_clean_50-50:
+    path: ${data.data_root}/RoboTwin2/lerobot-dataset-v3-instruction-full/turn_switch-aloha-agilex_clean_50-50
+    view_map:
+      image_1: observation.images.cam_high
+      image_2: observation.images.cam_left_wrist
+      image_3: observation.images.cam_right_wrist

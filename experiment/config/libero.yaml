@@ -1,0 +1,26 @@
+server:
+  # `host` is rewritten to the local IP by ../server.py when it launches.
+  host: 127.0.0.1
+  port: 8021
+  gpu_num: 1
+  gpu_ids:
+  - 0
+  config: rotvla
+  ckpt: checkpoints/VLA-Finetune-LIBERO   # path to your LIBERO checkpoint
+  time_step: 20
+libero:
+  task_suites:
+  - libero_spatial
+  - libero_object
+  - libero_goal
+  - libero_10
+  max_steps:
+  - 25
+  - 25
+  - 25
+  - 95
+  num_episodes: 50
+  horizon: 10
+  seed: 42
+  run_name: eval_h10
+output_root: eval_result/libero

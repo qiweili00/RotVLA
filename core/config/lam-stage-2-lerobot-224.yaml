@@ -1,0 +1,87 @@
+# Hydra + config precedence:
+#   yaml is the primary source; override any key on the command line with
+#   Hydra's key=value syntax, e.g.  trainer.lr=2e-4  save_dir=checkpoints/foo
+
+# Shared dataset lookup table (path + view_map per dataset) lives in
+# config/data_info/all.yaml and is pulled in here as a Hydra config group.
+# The `# @package data.data_info` directive in that file places its content at
+# data.data_info, so the inline block that used to live below is gone.
+defaults:
+  - _self_
+  - data_info: all
+
+hydra:
+  job:
+    chdir: false        # keep the original working dir (relative paths depend on it)
+  run:
+    dir: .
+  output_subdir: null   # do not emit a .hydra/ directory next to the run
+
+# Orchestration (previously CLI-only). Usually overridden per run on the command line.
+run_name: default_run
+save_dir: ./checkpoints
+lam_path: checkpoints/LAM-Pretrain/stage1_ckpt.pt   # Stage 1 LAM checkpoint
+resume_path: null
+vlm_name: OpenGVLab/InternVL3_5-1B                 # HF repo id or a local path
+seed: -1
+device: cuda
+
+model:
+  image_channels: 3
+
+  lam_model_dim: 768
+  lam_latent_dim: 16 # 16 # 32
+  lam_num_codes: 16
+  lam_use_uncontrol: false
+  lam_num_latents: 8192
+  lam_patch_size: 14
+  lam_enc_blocks: 12
+  lam_dec_blocks: 12
+  lam_num_heads: 12
+  to_pixel: true
+  use_identity: 100 # 5000
+  embed_dim: 1024
+  num_heads: 8
+  # Positional-embedding scheme for the action-head transformer.
+  #   split  : two independent pos_emb pools (default; current RotVLA design).
+  #   shared : single pos_emb pool with legacy num_actions-offset indexing,
+  #            compatible with old single-pool stage2 checkpoints.
+  # stage2 and stage3 MUST use the same value so the pretrained context
+  # positions carry over to finetuning.
+  pos_emb_scheme: shared
+
+
+# Training hyperparameters. Primary source; override with trainer.<key>=<value>.
+trainer:
+  lr: 1.0e-4
+  batch_size: 32
+  max_steps: 5000
+  warmup_steps: 1000
+  grad_clip_norm: 1.0
+  weight_decay: 1.0e-3
+  lr_scale: 10.0
+  num_workers: 8
+  log_interval: 10
+  ckpt_interval: 5000
+  horizon: 30
+  image_horizon: 2
+  per_action_dim: 24
+  state_dim: 24
+  action_space: ee6d
+  data_mix: magic_soup_oxe_agi_robomind_robocoin_ego4d_lerobot
+  use_augmentation: true
+  finetune_action_head: true
+  finetune_vlm: false
+  latent_supervision: z_m   # supervision target: z_m (raw code) or z_q (SO(n) rotation)
+  begin_with_step0: false   # resume weights but reset step to 0 (restart warmup)
+
+
+data:
+  resolution: 224
+  stage: stage2-vla-pretrain
+  patch_size: 14
+  downsample_ratio: 0.5
+  max_views: 3
+  vla_image_resolution: 224
+
+  # data_info: provided by the `data_info: all` entry in the defaults list above.

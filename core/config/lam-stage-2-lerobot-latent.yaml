@@ -1,0 +1,69 @@
+# Hydra + config precedence:
+#   yaml is the primary source; override any key on the command line with
+#   Hydra's key=value syntax, e.g.  trainer.max_steps=100000  save_dir=checkpoints/foo
+
+# Shared dataset lookup table (path + view_map per dataset) lives in
+# config/data_info/all.yaml and is pulled in here as a Hydra config group.
+# The `# @package data.data_info` directive in that file places its content at
+# data.data_info, so the inline block that used to live below is gone.
+defaults:
+  - _self_
+  - data_info: all
+
+hydra:
+  job:
+    chdir: false        # keep the original working dir (relative paths depend on it)
+  run:
+    dir: .
+  output_subdir: null   # do not emit a .hydra/ directory next to the run
+
+# Orchestration (previously CLI-only). Usually overridden per run on the command line.
+# Declared here so plain `task_name=...` / `save_dir=...` overrides work without
+# Hydra's `+` append prefix.
+task_name: lam-stage-1
+save_dir: ./checkpoints
+
+model:
+  image_channels: 3
+
+  lam_model_dim: 768
+  lam_latent_dim: 16
+  lam_num_codes: 16 
+  lam_num_latents: 8192
+  lam_patch_size: 14
+  lam_enc_blocks: 12
+  lam_dec_blocks: 12
+  lam_num_heads: 12
+  
+  
+  log_interval: 1001 #1001
+  log_wandb: 100
+  optimizer:
+    class_path: torch.optim.AdamW
+    init_args:
+      lr: 1e-4
+      weight_decay: 1e-2
+
+  # Initialization for LAM training: the UniVLA lam-stage-1 checkpoint
+  # (https://huggingface.co/qwbu/univla-latent-action-model)
+  stage_one_ckpt: checkpoints/univla-lam-stage-1.ckpt
+
+  univla_ckpt: true 
+  entropy_loss_ratio: 0.0001 #0.01
+  use_identity: 100 # 5000
+
+trainer:
+  ckpt_interval: 10000
+  max_steps: 200000
+
+
+data:
+  data_mix: magic_soup_lerobot_two #magic_soup_oxe_agi_robomind_robocoin_ego4d_lerobot #magic_soup_oxe_agi_robomind_robocoin_ego4d_lerobot # magic_soup_oxe_agi_robomind_robocoin_lerobot  # robomind_robocoin_lerobot magic_soup_oxe_agi_robomind_robocoin_lerobot robocoin robomind robomind_try magic_soup_lerobot_two      magic_soup_oxe_agi_lerobot                
+  batch_size: 32
+  resolution: 224
+
+  use_augmentation: true
+  stage: stage1-latent-pretrain
+  num_workers: 8
+  max_views: 1
+  # data_info: provided by the `data_info: all` entry in the defaults list above.
