@@ -22,6 +22,7 @@
 
 ## News
 
+- **[2026-09]** RotVLA is accepted at NeurIPS 2026.
 - **[2026-09]** Released the code, datasets and checkpoints.
 - **[2026-05]** RotVLA is on [arXiv](https://arxiv.org/abs/2605.13403).
 
